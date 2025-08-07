@@ -130,7 +130,7 @@
 
     function UpdateAudio() {
       const player = document.getElementById('player2');
-      player.src = 'http://sonicpanel.oficialserver.com:8342/stream';
+      player.src = 'http://sonicpanel.oficialserver.com:8342/';
       player.load();
       player.play();
       atualiza_dados('locutorver', 'locutor');
@@ -172,11 +172,12 @@
   <h1>📻 Rádio Habblive</h1>
 
   <div class="player-container">
-    <audio id="player2" autoplay controls preload="none" src="http://sonicpanel.oficialserver.com:8342/stream">
-      Seu navegador não suporta áudio HTML5.
-    </audio>
-
-    <div class="controls">
+    <audio id="player2" controls autoplay preload="none"
+       src="COLE_AQUI_O_LINK_DE_STREAMING">
+  Seu navegador não suporta áudio HTML5.
+</audio>
+]
+  <div class="controls">
       <button class="btn" onclick="SetVolumeLower()">🔉 Volume -</button>
       <button class="btn" onclick="SetVolumeHigher()">🔊 Volume +</button>
       <button class="btn" onclick="UpdateAudio()">🔁 Atualizar</button>
