@@ -3,7 +3,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Rádio Habblive - Ouça Agora</title>
+  <title>Rádio Habblive - A Maior da America Latina</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="//images.habblive.com/RECEPHLV01.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
@@ -130,7 +130,7 @@
 
     function UpdateAudio() {
       const player = document.getElementById('player2');
-      player.src = 'http://sonicpanel.oficialserver.com:8342/;';
+      player.src = 'http://sonicpanel.oficialserver.com:8342;';
       player.load();
       player.play();
       atualiza_dados('locutorver', 'locutor');
@@ -172,7 +172,7 @@
   <h1>📻 Rádio Habblive</h1>
 
   <div class="player-container">
-    <audio id="player2" autoplay controls preload="none" src="http://sonicpanel.oficialserver.com:8342/;">
+    <audio id="player2" autoplay controls preload="none" src="http://sonicpanel.oficialserver.com:8342;">
       Seu navegador não suporta áudio HTML5.
     </audio>
 
