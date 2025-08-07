@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rádio Habblive - Ouça Agora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="//images.habblive.com/RECEPHLV01.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: linear-gradient(135deg, #4627e3, #3a1b94);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .player-container {
+      background: #1c1c3a;
+      border-radius: 15px;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    audio {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      background-color: #ffffff;
+      color: #4627e3;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ddd;
+    }
+
+    .info-cards {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .card {
+      flex: 1 1 30%;
+      background: #2a2a4a;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card span {
+      display: block;
+      font-size: 1.2em;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    @media (max-width: 600px) {
+      .info-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script>
+    function atualiza_dados(id, caminho) {
+      $("#" + id).fadeOut(500, function () {
+        $(this).load("/radio/status.php?ver=" + caminho).fadeIn(500);
+      });
+    }
+
+    function auto() {
+      const player = document.getElementById('player2');
+      player.volume = 0.3;
+      atualiza_dados('locutorver', 'locutor');
+      atualiza_dados('programaver', 'programa');
+      atualiza_dados('unicosver', 'unicos');
+    }
+
+    function UpdateAudio() {
+      const player = document.getElementById('player2');
+      player.src = 'http://sonicpanel.oficialserver.com:8342/;';
+      player.load();
+      player.play();
+      atualiza_dados('locutorver', 'locutor');
+      atualiza_dados('programaver', 'programa');
+      atualiza_dados('unicosver', 'unicos');
+    }
+
+    function SetVolumeLower() {
+      const player = document.getElementById('player2');
+      if (player.volume > 0.05) player.volume -= 0.05;
+    }
+
+    function SetVolumeHigher() {
+      const player = document.getElementById('player2');
+      if (player.volume < 0.95) player.volume += 0.05;
+    }
+
+    $(document).ready(function () {
+      $("#muteButton").click(function () {
+        const player = document.getElementById('player2');
+        const isMuted = $(this).attr('data-muted') === '1';
+
+        player.muted = !isMuted;
+        $(this).attr('data-muted', isMuted ? '0' : '1');
+        $(this).text(isMuted ? "🔇 Mutar" : "🔊 Ativar Som");
+      });
+
+      // Atualizações automáticas a cada 60 segundos
+      setInterval(() => {
+        atualiza_dados('locutorver', 'locutor');
+        atualiza_dados('unicosver', 'unicos');
+      }, 60000);
+    });
+  </script>
+</head>
+
+<body onload="auto()">
+
+  <h1>📻 Rádio Habblive</h1>
+
+  <div class="player-container">
+    <audio id="player2" autoplay controls preload="none" src="http://sonicpanel.oficialserver.com:8342/;">
+      Seu navegador não suporta áudio HTML5.
+    </audio>
+
+    <div class="controls">
+      <button class="btn" onclick="SetVolumeLower()">🔉 Volume -</button>
+      <button class="btn" onclick="SetVolumeHigher()">🔊 Volume +</button>
+      <button class="btn" onclick="UpdateAudio()">🔁 Atualizar</button>
+      <button class="btn" id="muteButton" data-muted="0">🔇 Mutar</button>
+    </div>
+
+    <div class="info-cards">
+      <div class="card">
+        Locutor:
+        <span id="locutorver">Michael</span>
+      </div>
+      <div class="card">
+        Programa:
+        <span id="programaver">M&amp;M</span>
+      </div>
+      <div class="card">
+        Ouvintes:
+        <span id="unicosver">127</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Clique no botão play caso o áudio não inicie automaticamente. <br>
+    Ouça 24h sem parar! 🎶 Oferecido por: Iago
+  </div>
+
+</body>
+</html>
