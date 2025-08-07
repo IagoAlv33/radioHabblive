@@ -171,12 +171,15 @@
 
   <h1>📻 Rádio Habblive</h1>
 
-  <div class="player-container">
-    <audio id="player2" controls autoplay preload="none"
-       src="http://sonicpanel.oficialserver.com:8342">
-  Seu navegador não suporta áudio HTML5.
-</audio>
-]
+<div class="player-container">
+  <h2>Ouça a Rádio Habblive</h2>
+  <audio id="player2" controls autoplay>
+    <source src="http://sonicpanel.oficialserver.com:8342/;" type="audio/mpeg">
+    Seu navegador não suporta áudio HTML5.
+  </audio>
+</div>
+
+
   <div class="controls">
       <button class="btn" onclick="SetVolumeLower()">🔉 Volume -</button>
       <button class="btn" onclick="SetVolumeHigher()">🔊 Volume +</button>
